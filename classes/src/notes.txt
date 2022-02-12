@@ -1,0 +1,81 @@
+/*
+Object.defineProperty(obj, props);
+
+Property descriptors present in objects come in two main flavors: 
+data descriptors and accessor descriptors(getter / setter pair).
+
+A data descriptor is a property that has a value, 
+which may or may not be writable. (value and writable prop)
+
+An accessor descriptor is a property described by a getter-setter pair of functions.
+A descriptor must be one of these two flavors; it cannot be both.
+
+
+Object.defineProperty(obj, prop, descriptor)
+
+PARAMETERS:
+
+    i)obj
+
+    The object on which to define or modify properties.
+
+    ii)props
+
+*/
+
+/*
+
+    property eğer defineProperty() ile oluşturulursa default olarak o property mutate edilemez.
+
+    1)enumerable
+        defaults to false
+        örnek: Object.keys(obj) çağırıldığında prop değeri döner.
+        default: false
+
+    2)configurable
+        defaults to false
+        The configurable attribute controls at the same time whether the property
+        can be deleted from the object and whether its attributes (other than value and writable) can be changed.
+
+    3)writable
+        defaults to false
+        true olduğunda propertye değer ataması yapılabilir.
+
+        örnek: object.id = 1
+
+
+
+*/
+
+function User() {
+  self = this;
+  // to set default value
+  let name = "Onur";
+
+  Object.defineProperty(self, "name", {
+    // data ve accessor descriptor icin ortak propertyler
+    enumerable: true,
+    configurable: true,
+    //
+
+    // sadece accessor icin
+    get: function () {
+      return name;
+    },
+    set: function (value) {
+      name = value;
+    },
+    //
+
+    // sadece data descriptor icin
+    // writable: false,
+    // value: undefined,
+  });
+}
+
+const user = new User("Onur");
+user.name = "Ahmet";
+/*
+  configurable: true ise çalışır, aksi halde hata verir
+  delete user.name;
+*/
